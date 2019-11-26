@@ -41,7 +41,6 @@ func TokensForTraversal(traversal hcl.Traversal) Tokens {
 }
 
 func appendTokensForValue(val cty.Value, toks Tokens) Tokens {
-	fmt.Printf("DEBUG\n")
 	switch {
 
 	case !val.IsKnown():
@@ -75,9 +74,8 @@ func appendTokensForValue(val cty.Value, toks Tokens) Tokens {
 
 	case val.Type() == cty.String:
 		newlineCount := len(strings.Split(val.AsString(), "\n"))
-		fmt.Printf("DEBUG %d %t %v\n", newlineCount, strings.HasSuffix(val.AsString(), "\n"), val.AsString())
 		if newlineCount > 1 && strings.HasSuffix(val.AsString(), "\n") {
-			src := escapeQuotedStringLit(val.AsString())
+			src := val.AsString()
 			toks = append(toks, &Token{
 				Type:  hclsyntax.TokenOHeredoc,
 				Bytes: []byte("<<EOM\n"),
@@ -85,7 +83,7 @@ func appendTokensForValue(val cty.Value, toks Tokens) Tokens {
 			if len(src) > 0 {
 				toks = append(toks, &Token{
 					Type:  hclsyntax.TokenStringLit,
-					Bytes: src,
+					Bytes: []byte(src),
 				})
 			}
 			toks = append(toks, &Token{
