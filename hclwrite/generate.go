@@ -78,7 +78,7 @@ func appendTokensForValue(val cty.Value, toks Tokens) Tokens {
 			src := val.AsString()
 			toks = append(toks, &Token{
 				Type:  hclsyntax.TokenOHeredoc,
-				Bytes: []byte("<<EOM\n"),
+				Bytes: []byte("<<EOM"),
 			})
 			if len(src) > 0 {
 				toks = append(toks, &Token{
@@ -88,7 +88,7 @@ func appendTokensForValue(val cty.Value, toks Tokens) Tokens {
 			}
 			toks = append(toks, &Token{
 				Type:  hclsyntax.TokenCHeredoc,
-				Bytes: []byte("\nEOM\n"),
+				Bytes: []byte("EOM"),
 			})
 		} else {
 			src := escapeQuotedStringLit(val.AsString())
