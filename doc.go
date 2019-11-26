@@ -10,7 +10,7 @@
 //
 //     import (
 //     	"log"
-//     	"github.com/hashicorp/hcl/v2/hclsimple"
+//     	"github.com/aivahealth/hcl/hclsimple"
 //     )
 //
 //     type Config struct {

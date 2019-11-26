@@ -1,7 +1,7 @@
 package hclwrite
 
 import (
-	"github.com/hashicorp/hcl/v2/hclsyntax"
+	"github.com/aivahealth/hcl/hclsyntax"
 )
 
 var inKeyword = hclsyntax.Keyword([]byte{'i', 'n'})

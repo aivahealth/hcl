@@ -1,8 +1,8 @@
 package fuzztemplate
 
 import (
-	"github.com/hashicorp/hcl/v2"
-	"github.com/hashicorp/hcl/v2/hclsyntax"
+	"github.com/aivahealth/hcl"
+	"github.com/aivahealth/hcl/hclsyntax"
 )
 
 func Fuzz(data []byte) int {

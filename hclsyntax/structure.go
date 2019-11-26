@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/hcl/v2"
+	"github.com/aivahealth/hcl"
 )
 
 // AsHCLBlock returns the block data expressed as a *hcl.Block.

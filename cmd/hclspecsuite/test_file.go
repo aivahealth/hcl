@@ -6,9 +6,9 @@ import (
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
 
-	"github.com/hashicorp/hcl/v2/ext/typeexpr"
-	"github.com/hashicorp/hcl/v2/gohcl"
-	"github.com/hashicorp/hcl/v2"
+	"github.com/aivahealth/hcl/ext/typeexpr"
+	"github.com/aivahealth/hcl/gohcl"
+	"github.com/aivahealth/hcl"
 )
 
 type TestFile struct {

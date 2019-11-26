@@ -3,9 +3,9 @@ package hcltest
 import (
 	"fmt"
 
-	"github.com/hashicorp/hcl/v2/hclsyntax"
+	"github.com/aivahealth/hcl/hclsyntax"
 
-	"github.com/hashicorp/hcl/v2"
+	"github.com/aivahealth/hcl"
 	"github.com/zclconf/go-cty/cty"
 )
 

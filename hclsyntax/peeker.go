@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/hashicorp/hcl/v2"
+	"github.com/aivahealth/hcl"
 )
 
 // This is set to true at init() time in tests, to enable more useful output

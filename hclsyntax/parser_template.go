@@ -6,7 +6,7 @@ import (
 	"unicode"
 
 	"github.com/apparentlymart/go-textseg/textseg"
-	"github.com/hashicorp/hcl/v2"
+	"github.com/aivahealth/hcl"
 	"github.com/zclconf/go-cty/cty"
 )
 

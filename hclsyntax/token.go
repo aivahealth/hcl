@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/apparentlymart/go-textseg/textseg"
-	"github.com/hashicorp/hcl/v2"
+	"github.com/aivahealth/hcl"
 )
 
 // Token represents a sequence of bytes from some HCL code that has been

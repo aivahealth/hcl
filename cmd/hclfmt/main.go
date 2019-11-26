@@ -9,9 +9,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hashicorp/hcl/v2"
-	"github.com/hashicorp/hcl/v2/hclparse"
-	"github.com/hashicorp/hcl/v2/hclwrite"
+	"github.com/aivahealth/hcl"
+	"github.com/aivahealth/hcl/hclparse"
+	"github.com/aivahealth/hcl/hclwrite"
 	"golang.org/x/crypto/ssh/terminal"
 )
 

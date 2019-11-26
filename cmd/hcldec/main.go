@@ -8,9 +8,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hashicorp/hcl/v2"
-	"github.com/hashicorp/hcl/v2/hcldec"
-	"github.com/hashicorp/hcl/v2/hclparse"
+	"github.com/aivahealth/hcl"
+	"github.com/aivahealth/hcl/hcldec"
+	"github.com/aivahealth/hcl/hclparse"
 	flag "github.com/spf13/pflag"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"

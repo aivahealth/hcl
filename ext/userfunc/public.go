@@ -1,7 +1,7 @@
 package userfunc
 
 import (
-	"github.com/hashicorp/hcl/v2"
+	"github.com/aivahealth/hcl"
 	"github.com/zclconf/go-cty/cty/function"
 )
 

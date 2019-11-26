@@ -3,8 +3,8 @@ package gohcl_test
 import (
 	"fmt"
 
-	"github.com/hashicorp/hcl/v2/gohcl"
-	"github.com/hashicorp/hcl/v2/hclwrite"
+	"github.com/aivahealth/hcl/gohcl"
+	"github.com/aivahealth/hcl/hclwrite"
 )
 
 func ExampleEncodeIntoBody() {

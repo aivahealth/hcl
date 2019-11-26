@@ -7,7 +7,7 @@ import (
 	"reflect"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/hashicorp/hcl/v2/hclsyntax"
+	"github.com/aivahealth/hcl/hclsyntax"
 )
 
 func TestFormat(t *testing.T) {

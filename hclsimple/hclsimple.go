@@ -12,10 +12,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/hashicorp/hcl/v2"
-	"github.com/hashicorp/hcl/v2/gohcl"
-	"github.com/hashicorp/hcl/v2/hclsyntax"
-	"github.com/hashicorp/hcl/v2/json"
+	"github.com/aivahealth/hcl"
+	"github.com/aivahealth/hcl/gohcl"
+	"github.com/aivahealth/hcl/hclsyntax"
+	"github.com/aivahealth/hcl/json"
 )
 
 // Decode parses, decodes, and evaluates expressions in the given HCL source
