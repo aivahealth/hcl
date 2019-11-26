@@ -2,11 +2,12 @@ package hclwrite
 
 import (
 	"fmt"
+	"strings"
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/hashicorp/hcl/v2"
-	"github.com/hashicorp/hcl/v2/hclsyntax"
+	"github.com/aivahealth/hcl"
+	"github.com/aivahealth/hcl/hclsyntax"
 	"github.com/zclconf/go-cty/cty"
 )
 
@@ -40,6 +41,7 @@ func TokensForTraversal(traversal hcl.Traversal) Tokens {
 }
 
 func appendTokensForValue(val cty.Value, toks Tokens) Tokens {
+	fmt.Printf("DEBUG\n")
 	switch {
 
 	case !val.IsKnown():
@@ -72,23 +74,41 @@ func appendTokensForValue(val cty.Value, toks Tokens) Tokens {
 		})
 
 	case val.Type() == cty.String:
-		// TODO: If it's a multi-line string ending in a newline, format
-		// it as a HEREDOC instead.
-		src := escapeQuotedStringLit(val.AsString())
-		toks = append(toks, &Token{
-			Type:  hclsyntax.TokenOQuote,
-			Bytes: []byte{'"'},
-		})
-		if len(src) > 0 {
+		newlineCount := len(strings.Split(val.AsString(), "\n"))
+		fmt.Printf("DEBUG %d %t %v\n", newlineCount, strings.HasSuffix(val.AsString(), "\n"), val.AsString())
+		if newlineCount > 1 && strings.HasSuffix(val.AsString(), "\n") {
+			src := escapeQuotedStringLit(val.AsString())
 			toks = append(toks, &Token{
-				Type:  hclsyntax.TokenQuotedLit,
-				Bytes: src,
+				Type:  hclsyntax.TokenOHeredoc,
+				Bytes: []byte("<<EOM\n"),
+			})
+			if len(src) > 0 {
+				toks = append(toks, &Token{
+					Type:  hclsyntax.TokenStringLit,
+					Bytes: src,
+				})
+			}
+			toks = append(toks, &Token{
+				Type:  hclsyntax.TokenCHeredoc,
+				Bytes: []byte("\nEOM\n"),
+			})
+		} else {
+			src := escapeQuotedStringLit(val.AsString())
+			toks = append(toks, &Token{
+				Type:  hclsyntax.TokenOQuote,
+				Bytes: []byte{'"'},
+			})
+			if len(src) > 0 {
+				toks = append(toks, &Token{
+					Type:  hclsyntax.TokenQuotedLit,
+					Bytes: src,
+				})
+			}
+			toks = append(toks, &Token{
+				Type:  hclsyntax.TokenCQuote,
+				Bytes: []byte{'"'},
 			})
 		}
-		toks = append(toks, &Token{
-			Type:  hclsyntax.TokenCQuote,
-			Bytes: []byte{'"'},
-		})
 
 	case val.Type().IsListType() || val.Type().IsSetType() || val.Type().IsTupleType():
 		toks = append(toks, &Token{
@@ -159,12 +179,12 @@ func appendTokensForValue(val cty.Value, toks Tokens) Tokens {
 
 func appendTokensForTraversal(traversal hcl.Traversal, toks Tokens) Tokens {
 	for _, step := range traversal {
-		toks = appendTokensForTraversalStep(step, toks)
+		appendTokensForTraversalStep(step, toks)
 	}
 	return toks
 }
 
-func appendTokensForTraversalStep(step hcl.Traverser, toks Tokens) Tokens {
+func appendTokensForTraversalStep(step hcl.Traverser, toks Tokens) {
 	switch ts := step.(type) {
 	case hcl.TraverseRoot:
 		toks = append(toks, &Token{
@@ -188,7 +208,7 @@ func appendTokensForTraversalStep(step hcl.Traverser, toks Tokens) Tokens {
 			Type:  hclsyntax.TokenOBrack,
 			Bytes: []byte{'['},
 		})
-		toks = appendTokensForValue(ts.Key, toks)
+		appendTokensForValue(ts.Key, toks)
 		toks = append(toks, &Token{
 			Type:  hclsyntax.TokenCBrack,
 			Bytes: []byte{']'},
@@ -196,8 +216,6 @@ func appendTokensForTraversalStep(step hcl.Traverser, toks Tokens) Tokens {
 	default:
 		panic(fmt.Sprintf("unsupported traversal step type %T", step))
 	}
-
-	return toks
 }
 
 func escapeQuotedStringLit(s string) []byte {
@@ -250,3 +268,4 @@ func appendRune(b []byte, r rune) []byte {
 	utf8.EncodeRune(ch, r)
 	return b
 }
+
