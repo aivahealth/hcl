@@ -1,4 +1,4 @@
-module github.com/aivahealth/hcl/v2
+module github.com/aivahealth/hcl
 
 require (
 	github.com/agext/levenshtein v1.2.1
