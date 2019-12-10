@@ -78,7 +78,7 @@ func appendTokensForValue(val cty.Value, toks Tokens) Tokens {
 			src := val.AsString()
 			toks = append(toks, &Token{
 				Type:  hclsyntax.TokenOHeredoc,
-				Bytes: []byte("<<EOM"),
+				Bytes: []byte("<<EOM\n"),
 			})
 			if len(src) > 0 {
 				toks = append(toks, &Token{
